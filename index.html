@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sukoon — Counseling that fits after work · ₹299 first call (Prototype)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#06120f; --bg2:#0a1a16; --card:rgba(255,255,255,.045); --card-solid:#0e211c;
+  --line:rgba(255,255,255,.09); --ink:#f2f8f6; --muted:#8fb3aa;
+  --mint:#5fe0b8; --mint-dim:#2c8f75; --lav:#a89bf5; --sand:#f2c14e; --coral:#ff8b6b;
+  --grad:linear-gradient(135deg,#5fe0b8,#8be9d1 45%,#a89bf5);
+  --r:20px; --max:1120px;
+}
+*{box-sizing:border-box; margin:0; padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Manrope',-apple-system,sans-serif; background:var(--bg); color:var(--ink); line-height:1.6; overflow-x:hidden}
+h1,h2,h3,.logo{font-family:'Sora',sans-serif; line-height:1.18; letter-spacing:-.02em}
+img{max-width:100%}
+::selection{background:var(--mint); color:#06120f}
+
+/* ============ UTIL ============ */
+.wrap{max-width:var(--max); margin:0 auto; padding:0 22px}
+.badge{display:inline-flex; align-items:center; gap:6px; font-size:12px; font-weight:700; padding:5px 12px; border-radius:99px; letter-spacing:.03em}
+.badge.sim{background:rgba(242,193,78,.14); color:var(--sand); border:1px solid rgba(242,193,78,.35)}
+.badge.soft{background:rgba(95,224,184,.1); color:var(--mint); border:1px solid rgba(95,224,184,.25)}
+.grad-text{background:var(--grad); -webkit-background-clip:text; background-clip:text; color:transparent}
+.muted{color:var(--muted)}
+.btn{
+  display:inline-flex; align-items:center; justify-content:center; gap:8px; cursor:pointer; border:none;
+  font-family:'Manrope',sans-serif; font-weight:700; font-size:16px; padding:15px 30px; border-radius:14px; text-decoration:none; transition:.18s;
+}
+.btn.main{background:var(--grad); color:#04120e; box-shadow:0 8px 32px rgba(95,224,184,.25)}
+.btn.main:hover{transform:translateY(-2px); box-shadow:0 12px 40px rgba(95,224,184,.4)}
+.btn.ghost{background:rgba(255,255,255,.06); color:var(--ink); border:1px solid var(--line)}
+.btn.ghost:hover{border-color:var(--mint); color:var(--mint)}
+.btn.sm{font-size:14.5px; padding:11px 22px; border-radius:12px}
+.btn.full{width:100%}
+section{padding:84px 0; position:relative}
+.eyebrow{font-size:13px; font-weight:800; letter-spacing:.14em; text-transform:uppercase; color:var(--mint); margin-bottom:14px}
+h2.sec{font-size:clamp(28px,4vw,42px); font-weight:800; margin-bottom:14px}
+.sec-sub{color:var(--muted); font-size:17px; max-width:620px}
+
+/* reveal */
+.rv{opacity:0; transform:translateY(26px); transition:.7s cubic-bezier(.2,.7,.3,1)}
+.rv.in{opacity:1; transform:none}
+
+/* ============ NAV ============ */
+nav{position:fixed; top:0; left:0; right:0; z-index:60; backdrop-filter:blur(18px); background:rgba(6,18,15,.72); border-bottom:1px solid var(--line)}
+.nav-in{max-width:var(--max); margin:0 auto; padding:14px 22px; display:flex; align-items:center; justify-content:space-between}
+.logo{font-weight:800; font-size:21px}
+.logo span{background:var(--grad); -webkit-background-clip:text; background-clip:text; color:transparent}
+.nav-links{display:flex; gap:26px; align-items:center}
+.nav-links a{color:var(--muted); text-decoration:none; font-size:14.5px; font-weight:600; transition:.15s}
+.nav-links a:hover{color:var(--ink)}
+@media(max-width:820px){ .nav-links a:not(.btn){display:none} }
+
+/* ============ HERO ============ */
+.hero{padding:150px 0 90px; overflow:hidden}
+.blob{position:absolute; border-radius:50%; filter:blur(90px); opacity:.5; pointer-events:none}
+.b1{width:520px; height:520px; background:#0e5a47; top:-160px; right:-120px}
+.b2{width:420px; height:420px; background:#3d2f8f; bottom:-140px; left:-140px; opacity:.4}
+.hero-grid{display:grid; grid-template-columns:1.15fr .85fr; gap:56px; align-items:center; position:relative}
+@media(max-width:900px){ .hero-grid{grid-template-columns:1fr} }
+h1{font-size:clamp(36px,5.4vw,60px); font-weight:800; margin:18px 0 20px}
+.hero-sub{font-size:18.5px; color:var(--muted); max-width:540px; margin-bottom:30px}
+.hero-sub b{color:var(--ink)}
+.hero-cta{display:flex; gap:14px; flex-wrap:wrap; align-items:center}
+.trust{display:flex; gap:18px; margin-top:26px; flex-wrap:wrap}
+.trust div{font-size:13px; color:var(--muted); display:flex; gap:7px; align-items:center}
+.trust i{font-style:normal; color:var(--mint)}
+
+/* phone mockup */
+.phone{
+  background:linear-gradient(165deg,#122a24,#0a1a16); border:1px solid rgba(255,255,255,.12);
+  border-radius:36px; padding:22px 18px; max-width:330px; margin:0 auto; position:relative;
+  box-shadow:0 40px 90px rgba(0,0,0,.55), inset 0 1px 0 rgba(255,255,255,.08);
+}
+.phone::before{content:''; position:absolute; top:12px; left:50%; transform:translateX(-50%); width:110px; height:24px; background:#06120f; border-radius:99px}
+.p-head{margin-top:34px; display:flex; justify-content:space-between; align-items:center; font-size:12px; color:var(--muted)}
+.p-card{background:rgba(255,255,255,.06); border:1px solid var(--line); border-radius:16px; padding:14px; margin-top:12px}
+.p-card h4{font-size:14.5px; margin-bottom:4px}
+.p-card p{font-size:12.5px; color:var(--muted)}
+.p-slot{display:flex; justify-content:space-between; align-items:center; background:rgba(95,224,184,.12); border:1px solid rgba(95,224,184,.4); border-radius:14px; padding:13px 14px; margin-top:12px; font-size:14px; font-weight:700}
+.p-slot small{color:var(--mint); font-weight:600}
+.p-mood{display:flex; gap:8px; margin-top:12px}
+.p-mood span{flex:1; background:rgba(255,255,255,.05); border:1px solid var(--line); text-align:center; padding:9px 0; border-radius:12px; font-size:17px}
+.p-mood span.on{background:rgba(95,224,184,.14); border-color:var(--mint)}
+.p-note{font-size:11px; color:var(--muted); text-align:center; margin-top:14px}
+.float-chip{
+  position:absolute; background:var(--card-solid); border:1px solid var(--line); border-radius:14px;
+  padding:10px 14px; font-size:12.5px; font-weight:700; box-shadow:0 14px 40px rgba(0,0,0,.5);
+  animation:float 5s ease-in-out infinite;
+}
+.fc1{top:70px; left:-38px; color:var(--sand)}
+.fc2{bottom:86px; right:-30px; color:var(--mint); animation-delay:2.4s}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-13px)}}
+@media(max-width:900px){ .float-chip{display:none} }
+
+/* stat strip */
+.stats{border-top:1px solid var(--line); border-bottom:1px solid var(--line); background:var(--bg2); padding:34px 0}
+.stats-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:26px; text-align:center}
+@media(max-width:760px){ .stats-grid{grid-template-columns:1fr; gap:22px} }
+.stat b{font-family:'Sora'; font-size:clamp(26px,3.4vw,38px); font-weight:800; display:block; color:var(--mint)}
+.stat.lav b{color:var(--lav)} .stat.sand b{color:var(--sand)}
+.stat span{font-size:13.5px; color:var(--muted)}
+.stat a{color:var(--muted); font-size:11px; text-decoration:underline; opacity:.7}
+
+/* ============ PAIN ============ */
+.pain-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:16px; margin-top:44px}
+.pain{
+  background:var(--card); border:1px solid var(--line); border-radius:var(--r); padding:24px; transition:.2s; position:relative; overflow:hidden;
+}
+.pain:hover{transform:translateY(-5px); border-color:rgba(95,224,184,.4); background:rgba(95,224,184,.05)}
+.pain em{font-style:normal; font-size:30px; display:block; margin-bottom:12px}
+.pain h3{font-size:16.5px; margin-bottom:7px}
+.pain p{font-size:14px; color:var(--muted)}
+.pain .late{position:absolute; top:14px; right:16px; font-size:11px; color:var(--sand); font-weight:700; opacity:.8}
+
+/* ============ WHAT / NOT ============ */
+.split{display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-top:44px}
+@media(max-width:760px){ .split{grid-template-columns:1fr} }
+.panel{border-radius:var(--r); padding:28px; border:1px solid var(--line)}
+.panel.yes{background:linear-gradient(160deg,rgba(95,224,184,.09),rgba(95,224,184,.02))}
+.panel.no{background:rgba(255,139,107,.05); border-color:rgba(255,139,107,.25)}
+.panel h3{font-size:17px; margin-bottom:16px; display:flex; gap:9px; align-items:center}
+.panel.yes h3{color:var(--mint)} .panel.no h3{color:var(--coral)}
+.panel li{list-style:none; font-size:14.5px; padding:8px 0; color:var(--muted); display:flex; gap:10px}
+.panel li::before{content:'✓'; color:var(--mint); font-weight:800}
+.panel.no li::before{content:'✕'; color:var(--coral)}
+
+/* ============ HOW ============ */
+.steps{display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:44px; counter-reset:st}
+@media(max-width:820px){ .steps{grid-template-columns:1fr} }
+.step{background:var(--card); border:1px solid var(--line); border-radius:var(--r); padding:28px; position:relative}
+.step::counter-increment:st; .step::before{
+  content:counter(st); position:absolute; top:-16px; left:24px; width:34px; height:34px; border-radius:10px;
+  background:var(--grad); color:#04120e; font-family:'Sora'; font-weight:800; display:flex; align-items:center; justify-content:center; font-size:15px;
+}
+.step h3{font-size:17px; margin:8px 0 8px}
+.step p{font-size:14.5px; color:var(--muted)}
+.step .mini{display:inline-block; margin-top:12px; font-size:12px; background:rgba(242,193,78,.12); color:var(--sand); border:1px solid rgba(242,193,78,.3); padding:3px 10px; border-radius:99px; font-weight:700}
+
+/* ============ PLANS ============ */
+.plans{display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:48px; align-items:stretch}
+@media(max-width:880px){ .plans{grid-template-columns:1fr; max-width:440px; margin-left:auto; margin-right:auto} }
+.plan{background:var(--card); border:1px solid var(--line); border-radius:24px; padding:30px 26px; display:flex; flex-direction:column; position:relative; transition:.2s}
+.plan:hover{transform:translateY(-6px)}
+.plan.pop{background:linear-gradient(170deg,rgba(95,224,184,.12),rgba(168,155,245,.07)); border:1.5px solid rgba(95,224,184,.55); box-shadow:0 24px 70px rgba(95,224,184,.12)}
+.plan .tag{position:absolute; top:-13px; left:50%; transform:translateX(-50%); background:var(--grad); color:#04120e; font-size:11.5px; font-weight:800; padding:5px 14px; border-radius:99px; letter-spacing:.05em; white-space:nowrap}
+.plan h3{font-size:17px; color:var(--muted); font-weight:700; margin-bottom:10px}
+.price{font-family:'Sora'; font-size:44px; font-weight:800; letter-spacing:-.03em}
+.price small{font-size:15px; color:var(--muted); font-weight:600; letter-spacing:0}
+.price .strike{font-size:17px; color:var(--muted); text-decoration:line-through; font-weight:500; margin-left:6px}
+.plan .desc{font-size:14px; color:var(--muted); margin:12px 0 18px; min-height:44px}
+.plan ul{list-style:none; flex:1; margin-bottom:22px}
+.plan li{font-size:14.5px; padding:7px 0; display:flex; gap:10px; color:#cfe5df}
+.plan li::before{content:'◆'; color:var(--mint); font-size:10px; margin-top:5px}
+.plan li.off{opacity:.35} .plan li.off::before{content:'—'; color:var(--muted)}
+.plan .fine{font-size:11.5px; color:var(--muted); text-align:center; margin-top:12px}
+.scarcity{text-align:center; margin-top:26px; font-size:14px; color:var(--sand); font-weight:700}
+
+/* ============ COUNSELORS ============ */
+.couns{display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:16px; margin-top:44px}
+.c-card{background:var(--card); border:1px solid var(--line); border-radius:var(--r); padding:24px}
+.c-top{display:flex; gap:14px; align-items:center; margin-bottom:14px}
+.av{width:54px; height:54px; border-radius:16px; background:linear-gradient(135deg,rgba(95,224,184,.3),rgba(168,155,245,.3)); display:flex; align-items:center; justify-content:center; font-family:'Sora'; font-weight:800; color:var(--mint); font-size:17px; border:1px solid var(--line)}
+.c-card h3{font-size:16.5px}
+.c-card .cred{font-size:12.5px; color:var(--mint); font-weight:700}
+.c-card p{font-size:13.5px; color:var(--muted)}
+.c-tags{display:flex; gap:7px; flex-wrap:wrap; margin-top:12px}
+.c-tags span{font-size:11.5px; background:rgba(255,255,255,.06); border:1px solid var(--line); color:var(--muted); padding:4px 10px; border-radius:99px}
+
+/* ============ SAFETY ============ */
+.safety{background:linear-gradient(150deg,rgba(242,193,78,.1),rgba(242,193,78,.03)); border:1px solid rgba(242,193,78,.35); border-radius:var(--r); padding:26px; margin-top:10px}
+.safety h3{color:var(--sand); font-size:16.5px; margin-bottom:10px}
+.safety p{font-size:14.5px; color:#f0dfae}
+.safety .lines{display:flex; gap:14px; flex-wrap:wrap; margin-top:14px}
+.safety .lines a{background:rgba(0,0,0,.3); border:1px solid rgba(242,193,78,.3); color:var(--ink); text-decoration:none; font-size:13.5px; font-weight:700; padding:9px 15px; border-radius:12px}
+.safety .lines a b{color:var(--sand)}
+
+/* ============ FAQ ============ */
+.faq{max-width:760px; margin:44px auto 0}
+.q{background:var(--card); border:1px solid var(--line); border-radius:16px; margin-bottom:12px; overflow:hidden}
+.q summary{cursor:pointer; padding:19px 22px; font-weight:700; font-size:15.5px; list-style:none; display:flex; justify-content:space-between; gap:14px}
+.q summary::-webkit-details-marker{display:none}
+.q summary::after{content:'+'; color:var(--mint); font-size:22px; font-weight:400; line-height:1}
+.q[open] summary::after{content:'–'}
+.q .a{padding:0 22px 20px; font-size:14.5px; color:var(--muted)}
+
+/* ============ FOOTER ============ */
+footer{border-top:1px solid var(--line); background:var(--bg2); padding:54px 0 34px}
+.f-grid{display:grid; grid-template-columns:1.4fr 1fr 1fr; gap:30px; margin-bottom:34px}
+@media(max-width:760px){ .f-grid{grid-template-columns:1fr} }
+footer h4{font-family:'Sora'; font-size:14px; margin-bottom:14px; color:var(--ink)}
+footer p, footer a{font-size:13.5px; color:var(--muted); text-decoration:none; display:block; margin-bottom:8px}
+footer a:hover{color:var(--mint)}
+.f-bottom{border-top:1px solid var(--line); padding-top:22px; font-size:12.5px; color:var(--muted); text-align:center}
+.f-bottom b{color:var(--coral)}
+
+/* ============ FLOW OVERLAY (prototype journey) ============ */
+#flow{position:fixed; inset:0; z-index:100; background:rgba(4,10,9,.92); backdrop-filter:blur(14px); display:none; overflow-y:auto; padding:20px 16px 60px}
+#flow.on{display:block}
+.fbox{max-width:460px; margin:0 auto}
+.fhead{display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; padding-top:6px}
+.fclose{background:rgba(255,255,255,.08); border:1px solid var(--line); color:var(--muted); width:38px; height:38px; border-radius:12px; font-size:17px; cursor:pointer}
+.fclose:hover{color:var(--ink); border-color:var(--mint)}
+.fprog{height:4px; background:rgba(255,255,255,.09); border-radius:99px; overflow:hidden; margin-bottom:22px}
+.fprog i{display:block; height:100%; background:var(--grad); width:10%; transition:.35s}
+.fscreen{display:none; animation:fin .3s ease}
+.fscreen.on{display:block}
+@keyframes fin{from{opacity:0; transform:translateY(14px)} to{opacity:1; transform:none}}
+.fstep{font-size:12.5px; color:var(--muted); font-weight:700; letter-spacing:.06em; text-transform:uppercase}
+.fscreen h2{font-size:24px; margin:8px 0 8px; font-weight:800}
+.fscreen .fsub{font-size:14.5px; color:var(--muted); margin-bottom:20px}
+.fcard{background:var(--card-solid); border:1px solid var(--line); border-radius:18px; padding:20px; margin-bottom:14px}
+label.fl{display:block; font-size:13px; color:var(--muted); font-weight:700; margin:14px 0 7px}
+.fin{width:100%; background:rgba(255,255,255,.05); border:1px solid var(--line); color:var(--ink); border-radius:12px; padding:13px 15px; font-size:15px; font-family:'Manrope'}
+.fin:focus{outline:2px; border-color:var(--mint)}
+.chips{display:flex; flex-wrap:wrap; gap:9px; margin-top:4px}
+.chip{background:rgba(255,255,255,.05); border:1px solid var(--line); color:var(--ink); padding:10px 16px; border-radius:99px; font-size:14px; cursor:pointer; transition:.15s}
+.chip:hover{border-color:var(--mint)}
+.chip.on{background:var(--mint); color:#04120e; border-color:var(--mint); font-weight:800}
+.consent{display:flex; gap:9px; align-items:flex-start; font-size:12.5px; color:var(--muted); margin-top:16px; line-height:1.5}
+.consent input{width:auto; margin-top:3px; accent-color:var(--mint)}
+.refl-card{background:linear-gradient(160deg,rgba(95,224,184,.12),rgba(168,155,245,.08)); border:1.5px solid rgba(95,224,184,.5)}
+.refl-card li{margin:10px 0 10px 18px; font-size:14.5px; color:#dff3ec}
+.slotrow{display:flex; justify-content:space-between; align-items:center; background:rgba(255,255,255,.05); border:1px solid var(--line); border-radius:14px; padding:15px 16px; margin:10px 0; cursor:pointer; font-size:15px; transition:.15s}
+.slotrow:hover{border-color:var(--mint)}
+.slotrow.on{border-color:var(--mint); background:rgba(95,224,184,.12)}
+.slotrow small{display:block; color:var(--muted); font-size:12.5px; font-weight:500}
+.slotrow .amt{font-weight:800; color:var(--mint)}
+.wa{background:#071713; border:1px solid var(--line); border-radius:16px; padding:15px; font-size:14px}
+.wa .bub{background:rgba(255,255,255,.06); border-radius:14px 14px 14px 3px; padding:12px 14px; margin:8px 0}
+.wa .tm{font-size:10.5px; color:var(--muted); text-align:right}
+.moods{display:flex; gap:8px; margin:10px 0}
+.moods div{flex:1; text-align:center; background:rgba(255,255,255,.05); border:1.5px solid transparent; border-radius:12px; padding:11px 0; font-size:19px; cursor:pointer}
+.moods div.on{border-color:var(--mint); background:rgba(95,224,184,.13)}
+.drow{display:flex; justify-content:space-between; font-size:14px; padding:9px 0; border-bottom:1px dashed rgba(255,255,255,.1); color:var(--muted)}
+.drow b{color:var(--ink)}
+.sum-num{font-family:'Sora'; font-size:24px; font-weight:800; color:var(--mint); margin:6px 0}
+.gline{font-size:12.5px; color:var(--muted); margin-top:10px; display:flex; gap:7px; align-items:center}
+.gline span{background:rgba(242,193,78,.12); color:var(--sand); border:1px solid rgba(242,193,78,.3); font-size:10.5px; font-weight:800; padding:2px 8px; border-radius:99px; letter-spacing:.04em}
+
+
+/* ============ SARA ============ */
+.sara-wrap{display:grid; grid-template-columns:.95fr 1.05fr; gap:36px; margin-top:46px; align-items:start}
+@media(max-width:880px){ .sara-wrap{grid-template-columns:1fr} }
+.sara-points li{list-style:none; font-size:15px; padding:9px 0; color:var(--muted); display:flex; gap:11px}
+.sara-points li::before{content:'✦'; color:var(--mint); margin-top:2px}
+.sara-points b{color:var(--ink)}
+.chat{background:var(--card-solid); border:1.5px solid rgba(95,224,184,.45); border-radius:24px; overflow:hidden; box-shadow:0 30px 80px rgba(0,0,0,.45)}
+.chat-h{display:flex; align-items:center; gap:12px; padding:16px 18px; border-bottom:1px solid var(--line); background:rgba(95,224,184,.07)}
+.chat-h .av{width:40px; height:40px; font-size:14px}
+.chat-h b{font-size:15px}
+.chat-h small{display:block; color:var(--mint); font-size:11.5px; font-weight:700}
+.chat-body{padding:16px; height:340px; overflow-y:auto; display:flex; flex-direction:column; gap:10px}
+.cb{max-width:88%; padding:12px 14px; border-radius:16px; font-size:14px; line-height:1.5; animation:fin .25s ease}
+.cb.bot{background:rgba(255,255,255,.06); border:1px solid var(--line); border-bottom-left-radius:4px; align-self:flex-start}
+.cb.me{background:var(--mint); color:#04120e; font-weight:600; border-bottom-right-radius:4px; align-self:flex-end}
+.cb.sys{background:rgba(242,193,78,.1); border:1px solid rgba(242,193,78,.4); color:#f0dfae; align-self:center; text-align:center; font-size:12.5px; max-width:96%}
+.chat-chips{display:flex; flex-wrap:wrap; gap:8px; padding:0 16px 12px}
+.chat-chips .chip{font-size:12.5px; padding:8px 13px}
+.chat-in{display:flex; gap:8px; padding:12px 16px 16px; border-top:1px solid var(--line)}
+.chat-in input{flex:1; background:rgba(255,255,255,.05); border:1px solid var(--line); color:var(--ink); border-radius:12px; padding:11px 14px; font-size:14px; font-family:'Manrope'}
+.chat-in button{background:var(--mint); color:#04120e; border:none; border-radius:12px; padding:0 18px; font-weight:800; cursor:pointer; font-size:14px}
+.chat-cta{background:rgba(95,224,184,.1); border:1px solid rgba(95,224,184,.4); border-radius:12px; padding:10px; text-align:center; margin:4px 16px 0}
+
+/* toast */
+#toast{position:fixed; bottom:22px; left:50%; transform:translateX(-50%); background:var(--mint); color:#04120e; font-weight:800; font-size:14px; padding:12px 22px; border-radius:99px; opacity:0; pointer-events:none; transition:.3s; z-index:200; white-space:nowrap}
+#toast.show{opacity:1}
+/* demo strip */
+.demostrip{position:fixed; bottom:0; left:0; right:0; z-index:55; background:rgba(6,18,15,.9); backdrop-filter:blur(12px); border-top:1px solid rgba(242,193,78,.3); padding:9px 16px; text-align:center; font-size:12.5px; color:var(--sand); font-weight:700}
+body{padding-bottom:42px}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-in">
+    <div class="logo">su<span>koon</span></div>
+    <div class="nav-links">
+      <a href="#pain">Relatable?</a>
+      <a href="#how">How it works</a>
+      <a href="#plans">Plans</a>
+      <a href="#faq">FAQ</a>
+      <a class="btn main sm" onclick="openFlow()">₹299 first call →</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="blob b1"></div><div class="blob b2"></div>
+  <div class="wrap hero-grid">
+    <div>
+      <span class="badge soft">📞 Counselors all day · 7 AM – 1 AM · Free AI guide · Metro cities</span>
+      <h1>Deadline done.<br><span class="grad-text">Brain still on.</span></h1>
+      <p class="hero-sub">
+        Work stress, racing thoughts, EMI math at 1 AM — talk it through with a <b>verified counselor</b> on a
+        <b>20-minute Hindi or English call</b> — morning, lunch break, or 2 AM, whenever it hits. Plus <b>Sara, a free AI guide</b>, for the moments between. Not a social app. Not a diagnosis.
+        Just a clear next step for your head.
+      </p>
+      <div class="hero-cta">
+        <a class="btn main" onclick="openFlow()">Book ₹299 first call →</a>
+        <a class="btn ghost" href="#how">See how it works</a>
+      </div>
+      <div class="trust">
+        <div><i>✓</i> No app install</div>
+        <div><i>✓</i> Sara AI guide — free, 24×7</div>
+        <div><i>✓</i> UPI in 30 seconds</div>
+        <div><i>✓</i> Verified counselors (M.A./M.Phil)</div>
+        <div><i>✓</i> Private by default</div>
+      </div>
+    </div>
+
+    <!-- phone mock -->
+    <div style="position:relative">
+      <div class="float-chip fc1">💼 Review week? Breathe.</div>
+      <div class="float-chip fc2">⚡ Sara · free AI guide · 24×7</div>
+      <div class="phone">
+        <div class="p-head"><span>9:41</span><span class="badge sim" style="font-size:10px; padding:3px 8px">PROTOTYPE</span></div>
+        <div class="p-card">
+          <h4>Today's check-in <span class="badge sim" style="font-size:9.5px; padding:2px 7px">mock</span></h4>
+          <p>How heavy was work today?</p>
+          <div class="p-mood"><span>😞</span><span>😕</span><span class="on">😐</span><span>🙂</span><span>😄</span></div>
+        </div>
+        <div class="p-slot"><span>📞 Next slot · 11:30 AM today<br><small>20-min call · Ananya S. · Hindi</small></span><small>₹299</small></div>
+        <div class="p-card">
+          <h4>After the call</h4>
+          <p>60-second daily check-in + weekly summary your counselor actually reads. <span class="badge sim" style="font-size:9.5px; padding:2px 7px">simulated</span></p>
+        </div>
+        <div class="p-note">One session ≠ changed life.<br>One session = stopped white-knuckling it alone.</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="wrap stats-grid">
+    <div class="stat rv"><b>70–92%</b><span>of Indians with mental-health needs get <b>no help at all</b><br><a href="https://pib.gov.in/PressReleasePage.aspx?PRID=2188003&lang=2&reg=3" target="_blank">NIMHANS NMHS 2015-16, via PIB →</a></span></div>
+    <div class="stat lav rv"><b>12 billion</b><span>workdays lost every year to depression &amp; anxiety globally<br><a href="https://pib.gov.in/PressNoteDetails.aspx?ModuleId=3&NoteId=153261&lang=1&reg=3" target="_blank">WHO, via PIB →</a></span></div>
+    <div class="stat sand rv"><b>55%</b><span>of young Indian working adults feel too exhausted after their day<br><a href="https://www.cnbctv18.com/lifestyle/despite-active-social-lives-35-of-urban-indian-singles-battle-chronic-loneliness-19997757.htm" target="_blank">Match–Ipsos 2026 →</a></span></div>
+  </div>
+</div>
+
+<!-- PAIN -->
+<section id="pain">
+  <div class="wrap">
+    <div class="eyebrow rv">Sound familiar?</div>
+    <h2 class="sec rv">You're handling it.<br>But at what cost?</h2>
+    <p class="sec-sub rv">Nobody at work sees this part. The deadline gets met anyway.</p>
+    <div class="pain-grid">
+      <div class="pain rv"><span class="late">11:47 PM</span><em>💻</em><h3>Laptop closed, brain still tabbing</h3><p>Work ended hours ago. The loop in your head didn't get the memo.</p></div>
+      <div class="pain rv"><span class="late">1:02 AM</span><em>🧮</em><h3>EMI math instead of sleep</h3><p>Rent, fees, that loan. The numbers re-arrange themselves every night.</p></div>
+      <div class="pain rv"><em>📊</em><h3>Review week = every doubt on loop</h3><p>One feedback line you can't stop replaying, no matter how small it was.</p></div>
+      <div class="pain rv"><em>📅</em><h3>Sunday 6 PM already feels like Monday</h3><p>The week hasn't started and your chest already has. Again.</p></div>
+      <div class="pain rv"><em>🤥</em><h3>"I'm fine" on autopilot</h3><p>You deflect with a joke so fast even you almost believe it.</p></div>
+      <div class="pain rv"><em>😅</em><h3>Stress shows up as anger or shutdown</h3><p>Snapping at family, then guilt. Or going flat and calling it "being busy."</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT IT IS / ISN'T -->
+<section style="background:var(--bg2); border-top:1px solid var(--line); border-bottom:1px solid var(--line)">
+  <div class="wrap">
+    <div class="eyebrow rv">Clear scope. No confusion.</div>
+    <h2 class="sec rv">What Sukoon is — and what it isn't</h2>
+    <div class="split">
+      <div class="panel yes rv">
+        <h3>✓ This is</h3>
+        <ul>
+          <li>A <b>counseling service</b> — 20-min first call, then structured support</li>
+          <li>For: work stress, anxiety, sleep, burnout, money worry, relationship strain</li>
+          <li>Hindi or English, on your phone — <b>slots all day (7 AM–1 AM)</b>, most within 2–3 hours</li>
+          <li><b>Sara, a free AI guide</b>, for immediate support before you ever pay</li>
+          <li>Verified counselors (M.A./M.Phil Psychology) + AI daily check-ins between sessions</li>
+          <li>Something you book in 60 seconds, without telling anyone</li>
+        </ul>
+      </div>
+      <div class="panel no rv">
+        <h3>✕ This is not</h3>
+        <ul>
+          <li>Not a friend-finding, chat-with-strangers, or "find me someone to talk to" app</li>
+          <li>Not a crisis or suicide line — free helplines on every screen instead</li>
+          <li>Not diagnosis, medication, or "AI therapy"</li>
+          <li>Not a 45-min commitment on day one — ₹299, 20 minutes, that's it</li>
+          <li>Not for under-18s or couples counseling (v1 scope)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW -->
+<section id="how">
+  <div class="wrap">
+    <div class="eyebrow rv">How it works</div>
+    <h2 class="sec rv">From "something's off" to a call — whenever it hits</h2>
+    <div class="steps">
+      <div class="step rv">
+        <h3>30-second intake</h3>
+        <p>Pick what's actually weighing on you — work, money, sleep, someone at home. Four questions, no login, no app.</p>
+        <span class="mini">PROTOTYPE: simulated</span>
+      </div>
+      <div class="step rv">
+        <h3>AI reflection + your slot</h3>
+        <p>A 3-bullet snapshot of your stressor to walk into the call with. Then pick any slot that fits today (7 AM–1 AM) and pay ₹299 on UPI.</p>
+        <span class="mini">PROTOTYPE: simulated AI</span>
+      </div>
+      <div class="step rv">
+        <h3>The call — then daily check-ins</h3>
+        <p>20 minutes with your counselor on WhatsApp call. Afterward: 60-second daily check-ins + a weekly summary that guides session two.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- SARA -->
+<section id="sara" style="background:var(--bg2); border-top:1px solid var(--line)">
+  <div class="wrap">
+    <div class="eyebrow rv">Free · No signup · 24×7</div>
+    <h2 class="sec rv">Can't book right now?<br><span class="grad-text">Talk to Sara first — she's free.</span></h2>
+    <p class="sec-sub rv">Sara is Sukoon's AI guide for the moment stress hits and a human isn't available yet. Grounding exercises, sleep wind-downs, naming what you feel — no account, no payment, ever.</p>
+
+    <div class="sara-wrap">
+      <div class="rv">
+        <ul class="sara-points">
+          <li><b>Immediate support at 2 AM</b> — when booking a call feels like too big a step</li>
+          <li><b>Guided exercises</b> — 4-7-8 breathing, 60-sec pre-meeting resets, wind-down scripts</li>
+          <li><b>Honest triage</b> — helps you tell a bad day from a rough month; suggests a counselor when a chat won't cut it</li>
+          <li><b>Zero pressure</b> — Sara never sells. She shows slots only when you ask</li>
+          <li><b>Hard guardrails</b> — no diagnosis, no medication talk; crisis language routes to KIRAN/Vandrevala/112 instantly</li>
+        </ul>
+        <div class="gline" style="margin-top:18px"><span>SCOPE</span> Sara is structured wellness guidance — not a therapist, not therapy, not crisis care.</div>
+      </div>
+
+      <div class="chat rv" id="chatBox">
+        <div class="chat-h">
+          <div class="av">SA</div>
+          <div><b>Sara</b><small>● Free AI guide · replies instantly <span class="badge sim" style="font-size:9px; padding:1px 6px; vertical-align:middle">SIMULATED</span></small></div>
+        </div>
+        <div class="chat-body" id="chatBody">
+          <div class="cb bot">Namaste. I'm Sara — free, no signup. Bad day, bad week, or can't sleep? Tell me what's heavy, or tap a chip below.</div>
+          <div class="cb sys">Prototype note: Sara's replies are scripted mock responses — production uses an LLM with strict guardrails.</div>
+        </div>
+        <div class="chat-chips" id="chatChips">
+          <div class="chip" data-k="sleep">🌙 Can't sleep</div>
+          <div class="chip" data-k="meet">⚡ Racing thoughts before a meeting</div>
+          <div class="chip" data-k="vent">💬 Just need to vent</div>
+          <div class="chip" data-k="need">🩺 Do I need a counselor?</div>
+        </div>
+        <div class="chat-in">
+          <input id="chatIn" placeholder="Or type here…" onkeydown="if(event.key==='Enter')sendChat()">
+          <button onclick="sendChat()">Send</button>
+        </div>
+        <div class="chat-cta" id="chatCta" style="display:none">
+          <a class="btn main sm full" onclick="openFlow()">Book a ₹299 counselor call →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PLANS -->
+<section id="plans" style="background:var(--bg2); border-top:1px solid var(--line); border-bottom:1px solid var(--line)">
+  <div class="wrap">
+    <div class="eyebrow rv">Plans &amp; pricing</div>
+    <h2 class="sec rv">Cheaper than the overthinking</h2>
+    <p class="sec-sub rv">Start with one call. Continue only if it earns it. Cancel anytime — this isn't a lock-in product.</p>
+
+    <div class="plans">
+      <div class="plan rv">
+        <h3>First call</h3>
+        <div class="price">₹299 <small>/ one time</small></div>
+        <p class="desc">The test drive. One 20-min call with a counselor matched to your stressor — book any slot, same day.</p>
+        <ul>
+          <li>20-min phone/video call (Hindi/English)</li>
+          <li>Same-day slot (7 AM – 1 AM)</li>
+          <li>Pre-call AI reflection snapshot</li>
+          <li>7 days of daily check-ins</li>
+          <li>Sara AI guide — unlimited, free</li>
+          <li class="off">Ongoing monthly session</li>
+          <li class="off">Weekly counselor summary</li>
+        </ul>
+        <button class="btn main full" onclick="openFlow()">Start with ₹299 →</button>
+        <p class="fine">One-time · no subscription</p>
+      </div>
+
+      <div class="plan pop rv">
+        <div class="tag">MOST POPULAR · SUPPORT PLAN</div>
+        <h3>Monthly support</h3>
+        <div class="price">₹999 <small>/ month</small></div>
+        <p class="desc">For when one call isn't enough — structure, continuity, and someone in your corner.</p>
+        <ul>
+          <li>1 × 45-min counselor session / month</li>
+          <li>Daily 60-second AI check-ins (mood + trigger log)</li>
+          <li>Sara AI guide — unlimited, free</li>
+          <li>Weekly summary read by your counselor</li>
+          <li>Reschedule up to 12 hrs before</li>
+          <li>WhatsApp support for booking issues</li>
+          <li class="off">Extra sessions (add-on ₹499)</li>
+        </ul>
+        <button class="btn main full" onclick="openFlow()">Get monthly →</button>
+        <p class="fine">Cancel anytime · UPI auto-free (manual renewal)</p>
+      </div>
+
+      <div class="plan rv">
+        <h3>Founding members</h3>
+        <div class="price">₹799 <span class="strike">₹999</span> <small>/ month</small></div>
+        <p class="desc">First 10 people who try the pilot. Same plan, locked price, direct input on what we build next.</p>
+        <ul>
+          <li>Everything in Monthly support</li>
+          <li>₹799/month locked for 3 months</li>
+          <li>Direct feedback line to the founder</li>
+          <li>Founding-member badge (optional!)</li>
+          <li class="off">Extra sessions (add-on ₹499)</li>
+        </ul>
+        <button class="btn ghost full" onclick="openFlow()">Claim a founding seat →</button>
+        <p class="fine">Only 10 seats in pilot · <span style="color:var(--sand)">few left</span></p>
+      </div>
+    </div>
+    <p class="scarcity rv"> Pilot = 10 founding seats. When they're gone, the price goes back to ₹999.</p>
+
+    <div class="safety rv" style="max-width:760px; margin:44px auto 0">
+      <h3>⚠ If it's an emergency — don't book, call.</h3>
+      <p>Sukoon is wellness support, <b>not a crisis service</b>. If you're thinking of harming yourself or someone else, use free 24×7 lines or 112 right now.</p>
+      <div class="lines">
+        <a href="tel:18005990019">KIRAN <b>1800-599-0019</b></a>
+        <a href="tel:18002333330">Vandrevala <b>1800-233-3330</b></a>
+        <a href="tel:9152987821">iCall <b>9152987821</b></a>
+        <a href="tel:112">Emergency <b>112</b></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COUNSELORS -->
+<section>
+  <div class="wrap">
+    <div class="eyebrow rv">The people on the call</div>
+    <h2 class="sec rv">Verified counselors. <span class="muted" style="font-weight:600">Not life-coach vibes.</span></h2>
+    <p class="sec-sub rv">Minimum M.A. Psychology. Session notes stay between you and them. <span class="badge sim" style="vertical-align:middle">NAMES BELOW ARE SIMULATED FOR THE PROTOTYPE</span></p>
+    <div class="couns">
+      <div class="c-card rv">
+        <div class="c-top"><div class="av">AS</div><div><h3>Ananya S.</h3><div class="cred">M.A. Psychology · 3 yrs</div></div></div>
+        <p>Works with deadline anxiety, imposter feelings at work, and the "I should be further by now" spiral.</p>
+        <div class="c-tags"><span>Hindi</span><span>English</span><span>Work stress</span><span>Burnout</span></div>
+      </div>
+      <div class="c-card rv">
+        <div class="c-top"><div class="av">RK</div><div><h3>Rohit K.</h3><div class="cred">M.Phil · 4 yrs</div></div></div>
+        <p>Sleep disruption, financial pressure, and anger that shows up at home after bad work days.</p>
+        <div class="c-tags"><span>Hindi</span><span>Sleep</span><span>Money stress</span><span>Relationships</span></div>
+      </div>
+      <div class="c-card rv">
+        <div class="c-top"><div class="av">MJ</div><div><h3>Meera J.</h3><div class="cred">M.A. · 5 yrs</div></div></div>
+        <p>Works across day and night shifts — early-morning anxiety before office, or 1 AM spirals. Calm, direct, zero-judgment style.</p>
+        <div class="c-tags"><span>Hindi</span><span>English</span><span>Anxiety</span><span>Day + night shifts</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" style="background:var(--bg2); border-top:1px solid var(--line)">
+  <div class="wrap">
+    <div class="eyebrow rv">FAQ</div>
+    <h2 class="sec rv">The questions people actually ask</h2>
+    <div class="faq">
+      <details class="q rv"><summary>Is this therapy? Am I "sick" if I use it?</summary><div class="a">No on both. Sukoon is wellness counseling for everyday stress — like a physiotherapist for your back, but for a stressed week. No diagnosis, no medication, no labels. If something clinical shows up, your counselor will say so and point you to the right professional.</div></details>
+      <details class="q rv"><summary>Why only 20 minutes for the first call?</summary><div class="a">Because the first call's only job is: make you feel heard, understand your situation, and agree on one next step. 60 minutes on day one is a commitment most stressed people never make. We want the second call, not the perfect first call.</div></details>
+      <details class="q rv"><summary>Who hears my problems? Is it private?</summary><div class="a">One verified counselor. Calls aren't recorded. Your intake answers are used only for your care, deletable on request (DPDP-aligned). Nothing shared with your employer, ever — we have no employer clients in v1.</div></details>
+      <details class="q rv"><summary>What does the AI actually do?</summary><div class="a">Structure, not therapy: a pre-call reflection of what you typed, daily mood/trigger check-ins, and a weekly summary your counselor reads before session two. It never diagnoses, never gives advice, and flags crisis language to a human + helplines immediately.</div></details>
+      <details class="q rv"><summary>Hindi or English? Which cities?</summary><div class="a">Both languages on every call. v1 pilot: Mumbai, Bengaluru, Delhi-NCR, Hyderabad, Pune, Chennai — slots 7 AM to 1 AM IST; most people get one within 2–3 hours. Sara (free AI guide) works 24×7.</div></details>
+      <details class="q rv"><summary>What if I cancel or the call doesn't help?</summary><div class="a">Reschedule free up to 12 hrs before. First-call ₹299: if the call is a no-show from our side, full refund, no questions. Monthly: cancel anytime, effective next cycle.</div></details>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section style="text-align:center">
+  <div class="wrap">
+    <h2 class="sec rv" style="max-width:640px; margin:0 auto 14px">Tomorrow's deadline will still be there.<br><span class="grad-text">The slot you need doesn't have to wait for a breakdown.</span></h2>
+    <p class="sec-sub rv" style="margin:0 auto 30px">₹299. Twenty minutes. Any slot 7 AM–1 AM — in the language you actually think in. Not ready yet? <b style="color:var(--mint)">Talk to Sara first, free.</b></p>
+    <a class="btn main rv" style="font-size:18px; padding:18px 44px" onclick="openFlow()">Book the ₹299 call →</a>
+    <div style="margin-top:16px"><a class="btn ghost rv" onclick="document.getElementById('sara').scrollIntoView()">💬 Or talk to Sara — free AI guide</a></div>
+    <p class="muted rv" style="font-size:13px; margin-top:16px">Prototype: booking &amp; payment are simulated · no real charge</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="f-grid">
+      <div>
+        <div class="logo" style="margin-bottom:12px">su<span>koon</span></div>
+        <p>Counseling for working professionals — any slot 7 AM–1 AM, plus <b style="color:var(--mint)">Sara</b>, a free 24×7 AI guide. Work stress, anxiety, sleep, burnout — in Hindi or English, on your phone.</p>
+        <p style="margin-top:10px"><span class="badge sim">PROTOTYPE BUILD</span></p>
+      </div>
+      <div>
+        <h4>Product</h4>
+        <a href="#how">How it works</a>
+        <a href="#plans">Plans &amp; pricing</a>
+        <a href="#faq">FAQ</a>
+        <a onclick="openFlow()" style="cursor:pointer">Book a call →</a>
+      </div>
+      <div>
+        <h4>Crisis support (free, 24×7)</h4>
+        <a href="tel:18005990019">KIRAN — 1800-599-0019</a>
+        <a href="tel:18002333330">Vandrevala — 1800-233-3330</a>
+        <a href="tel:9152987821">iCall — 9152987821</a>
+        <a href="tel:112">Emergency — 112</a>
+      </div>
+    </div>
+    <div class="f-bottom">
+      Sukoon is <b>wellness support, not medical treatment or a crisis service</b>. Simulated functionality: AI reflection, slot availability, payment, WhatsApp messages, counselor names, check-in history.<br>
+      Assignment submission · Innovista Labs · No real users, charges, or data — demo only.
+    </div>
+  </div>
+</footer>
+
+<div class="demostrip">⚠ PROTOTYPE · payments, AI, counselors &amp; messages are simulated mock data — no real charge or booking</div>
+
+<!-- ================= FLOW OVERLAY ================= -->
+<div id="flow">
+  <div class="fbox">
+    <div class="fhead">
+      <div class="logo">su<span>koon</span></div>
+      <button class="fclose" onclick="closeFlow()" aria-label="Close">✕</button>
+    </div>
+    <div class="fprog"><i id="fbar"></i></div>
+
+    <!-- F1 intake -->
+    <div class="fscreen on" id="f-intake">
+      <div class="fstep">Step 1 of 5 · Intake</div>
+      <h2>What's weighing on you?</h2>
+      <p class="fsub">Four questions, 30 seconds. Goes to your counselor before the call — nobody else. <span class="badge sim">simulated form</span></p>
+      <div class="fcard">
+        <label class="fl">Primary stressor (pick one)</label>
+        <div class="chips" id="cChips">
+          <div class="chip" data-v="work">💼 Work / deadline stress</div>
+          <div class="chip" data-v="money">🧮 Money / EMI worry</div>
+          <div class="chip" data-v="sleep">🌙 Sleep / overthinking</div>
+          <div class="chip" data-v="relation">🏠 Someone at home</div>
+          <div class="chip" data-v="anx">⚡ Anxiety / racing heart</div>
+          <div class="chip" data-v="other">🤔 Not sure yet</div>
+        </div>
+        <label class="fl">City</label>
+        <input class="fin" id="fCity" value="Bengaluru" placeholder="Mumbai / Bengaluru / Delhi NCR…">
+        <label class="fl">WhatsApp number (slot confirmation)</label>
+        <input class="fin" id="fWa" value="+91 98•••• ••21" inputmode="tel">
+        <label class="consent"><input type="checkbox" id="fConsent" checked>
+          I agree my answers are used only for my session (DPDP-aligned, deletable anytime). Sukoon is wellness support — not diagnosis, not crisis care.</label>
+        <button class="btn main full" style="margin-top:18px" onclick="submitIntake()">Continue →</button>
+      </div>
+    </div>
+
+    <!-- F2 reflection -->
+    <div class="fscreen" id="f-reflect">
+      <div class="fstep">Step 2 of 5 · Pre-call reflection</div>
+      <h2>Walk in with clarity</h2>
+      <p class="fsub">Generated from your answers so the call starts at depth, not at "so what brings you here." <span class="badge sim">SIMULATED AI</span></p>
+      <div class="fcard refl-card">
+        <p style="font-size:13px; color:var(--muted)">You said: <b id="rConcern" style="color:var(--ink)">work stress</b> · <span id="rCity">Bengaluru</span></p>
+        <ul id="rList"></ul>
+        <p style="font-size:14.5px; margin-top:12px">🎯 <b>One question for your call:</b> <span id="rQ"></span></p>
+      </div>
+      <div class="gline"><span>GUARDRAIL</span> Reflection only — no diagnosis, no advice, no medication talk. Ever.</div>
+      <button class="btn main full" style="margin-top:16px" onclick="goF('slot')">Pick your slot →</button>
+      <button class="btn ghost full sm" style="margin-top:10px" onclick="goF('intake')">← Edit answers</button>
+    </div>
+
+    <!-- F3 slots -->
+    <div class="fscreen" id="f-slot">
+      <div class="fstep">Step 3 of 5 · Slot</div>
+      <h2>Pick a time — any time</h2>
+      <p class="fsub">20-min phone/video · Hindi or English · slots 7 AM – 1 AM <span class="badge sim">simulated availability</span></p>
+      <div class="fcard" style="padding:8px 14px">
+        <div class="slotrow" data-t="11:30 AM" data-c="Ananya S." onclick="pickSlot(this)">
+          <div><b>11:30 AM</b><small>Ananya S. · M.A. · Hindi/English · next available</small></div><span class="amt">₹299</span>
+        </div>
+        <div class="slotrow" data-t="4:00 PM" data-c="Rohit K." onclick="pickSlot(this)">
+          <div><b>4:00 PM</b><small>Rohit K. · M.Phil · Hindi · confirmed</small></div><span class="amt">₹299</span>
+        </div>
+        <div class="slotrow" data-t="9:30 PM" data-c="Meera J." onclick="pickSlot(this)">
+          <div><b>9:30 PM</b><small>Meera J. · M.A. · Hindi/English · evening slot</small></div><span class="amt">₹299</span>
+        </div>
+      </div>
+      <div class="fcard" style="display:flex; justify-content:space-between; align-items:center">
+        <div><b style="font-size:15px">Pay ₹299 on UPI</b><br><small class="muted" style="font-size:12.5px">Razorpay in production · simulated here</small></div>
+        <div class="badge sim">DEMO</div>
+      </div>
+      <button class="btn main full" onclick="payNow()">Pay ₹299 (simulate) →</button>
+      <p class="muted" style="font-size:12.5px; text-align:center; margin-top:10px">No card details collected in this prototype.</p>
+    </div>
+
+    <!-- F4 confirmed -->
+    <div class="fscreen" id="f-done">
+      <div class="fstep">Step 4 of 5 · Confirmed</div>
+      <h2>You're booked ✓</h2>
+      <p class="fsub">In production this lands on WhatsApp in ~10 seconds. Here's exactly what you'd get <span class="badge sim">simulated message</span></p>
+      <div class="fcard">
+        <div class="wa">
+          <div style="font-size:12px; color:var(--muted)">+91 98•••• ••21 · WhatsApp preview</div>
+          <div class="bub">Namaste! Sukoon se. Aapki pehli call <b id="dSlot">aaj 4:00 PM</b> par <b id="dCoun">Rohit K.</b> ke saath confirm hai — 20 min, Hindi/English.</div>
+          <div class="bub">Call se pehle: phone charger + headphone, ek aisi jagah jahan koi disturb na kare. Turant baad aapko daily check-in link milega.</div>
+          <div class="bub">Reschedule? Bas yahin reply karein. Crisis ke liye (hamare alawa): KIRAN 1800-599-0019, 24×7 free.</div>
+          <div class="tm">9:14 PM ✓✓</div>
+        </div>
+      </div>
+      <div class="fcard" style="font-size:14.5px">
+        <b>Prototype skips the actual call</b> <span class="badge sim">by design</span><br>
+        <span class="muted">Real journey: your scheduled WhatsApp call → same-day check-in link. See the post-call experience next:</span>
+      </div>
+      <button class="btn main full" onclick="goF('checkin')">See post-call check-ins →</button>
+    </div>
+
+    <!-- F5 checkins -->
+    <div class="fscreen" id="f-checkin">
+      <div class="fstep">Step 5 of 5 · After the call</div>
+      <h2>60 seconds a day</h2>
+      <p class="fsub">The part every other platform forgets. Try today's check-in <span class="badge sim">mock week loaded</span></p>
+      <div class="fcard">
+        <b style="font-size:15px">How heavy was work today? <span class="muted" style="font-weight:500">(day 8/14)</span></b>
+        <div class="moods" id="mRow">
+          <div data-v="1">😞</div><div data-v="2">😕</div><div class="on" data-v="3">😐</div><div data-v="4">🙂</div><div data-v="5">😄</div>
+        </div>
+        <input class="fin" placeholder="One word: deadline / review / manager…" value="deadline" style="margin-top:6px">
+        <button class="btn main full sm" style="margin-top:12px" onclick="toast('Check-in saved (simulated)')">Save check-in</button>
+      </div>
+      <div class="fcard">
+        <b style="font-size:15px">Last 7 days <span class="badge sim">mock</span></b>
+        <div class="drow"><span>Mon</span><b>😕 · deadline</b></div>
+        <div class="drow"><span>Tue</span><b>😕 · review</b></div>
+        <div class="drow"><span>Wed</span><b>😐 · sleep</b></div>
+        <div class="drow"><span>Thu</span><b>🙂 · gym</b></div>
+        <div class="drow"><span>Fri</span><b>😐 · manager</b></div>
+        <div class="drow"><span>Sat</span><b>🙂 · off</b></div>
+        <div class="drow"><span>Sun</span><b>🙂 · family</b></div>
+      </div>
+      <div class="fcard" style="border-color:rgba(95,224,184,.4)">
+        <b style="font-size:15px">Weekly summary → counselor <span class="badge sim">simulated</span></b>
+        <div class="sum-num">Work stress: 4/7 days</div>
+        <p class="muted" style="font-size:14px">Sleep recovered on days with evening exercise. Pattern: Tue–Wed deadlines spike rumination. Next session: a boundary script for 10 PM laptop shutdown + EMI anxiety ladder.</p>
+        <button class="btn ghost full sm" style="margin-top:14px" onclick="toast('Upsell card: ₹999/month — simulated')">See the ₹999 support plan →</button>
+      </div>
+      <button class="btn ghost full sm" onclick="closeFlow()">← Back to landing page</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+/* ---------- scroll reveal ---------- */
+const io = new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in'); io.unobserve(e.target)}}),{threshold:.12});
+document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+
+/* ---------- flow ---------- */
+const order=['intake','reflect','slot','done','checkin'];
+const pct={intake:15,reflect:40,slot:62,done:85,checkin:100};
+let concern=null, slot=null;
+
+function openFlow(){document.getElementById('flow').classList.add('on'); document.body.style.overflow='hidden'; goF('intake');}
+function closeFlow(){document.getElementById('flow').classList.remove('on'); document.body.style.overflow='';}
+function goF(id){
+  document.querySelectorAll('.fscreen').forEach(s=>s.classList.remove('on'));
+  document.getElementById('f-'+id).classList.add('on');
+  document.getElementById('fbar').style.width=pct[id]+'%';
+  document.getElementById('flow').scrollTo(0,0);
+  if(id==='reflect') renderReflect();
+}
+document.querySelectorAll('#cChips .chip').forEach(c=>c.onclick=()=>{
+  document.querySelectorAll('#cChips .chip').forEach(x=>x.classList.remove('on'));
+  c.classList.add('on'); concern=c.dataset.v;
+});
+function submitIntake(){
+  if(!document.getElementById('fConsent').checked){toast('Consent is required to continue'); return;}
+  if(!concern){toast('Pick what’s weighing on you first'); return;}
+  goF('reflect');
+}
+const reflMap={
+  work:{c:'work / deadline stress',pts:[
+    'Deadline pressure usually gets filed as "normal" — until your body files it differently (jaw, sleep, short fuse).',
+    'The real question isn’t "quit or don’t quit." It’s where you still have control this week — and where you’ve been pretending you do.',
+    'Chronic work stress narrows thinking: everything looks like a threat or a deadline. Session one is about widening that.'],q:'Last Tuesday’s worst 10 minutes at work — what actually happened?'},
+  money:{c:'money / EMI worry',pts:[
+    'Money anxiety loops because the brain treats uncertainty as danger — same alarm as a physical threat.',
+    'Avoidance compounds it: unopened statements feel heavier than the actual numbers usually are.',
+    'First move is usually clarity, not a raise: one honest snapshot of in vs. out.'],q:'Which number are you most afraid to look at?'},
+  sleep:{c:'sleep / overthinking',pts:[
+    'A brain that runs your day all day refuses to power off at night — it’s trained, not broken.',
+    'The 2 AM "rehearsing tomorrow" pattern is trainable back down, usually within 2–3 weeks of structure.',
+    'Sleep isn’t the first fix — it’s the scoreboard. We work the day, sleep follows.'],q:'What time does your brain usually start talking, and about what?'},
+  relation:{c:'someone at home',pts:[
+    'Work stress rarely stays at work — it leaks at 11 PM into the people who live with you, then guilt adds a second shift.',
+    'You can’t fix their reaction, but you can change what you bring through the door.',
+    'Session one maps the trigger → reaction → repair loop.'],q:'Last time you snapped or went quiet at home — what happened just before?'},
+  anx:{c:'anxiety / racing heart',pts:[
+    'A racing heart at rest is your alarm system misreading a spreadsheet as a lion — common, manageable, not dangerous by itself.',
+    'Naming the pattern out loud (with a counselor) measurably lowers its intensity — that’s the whole point of call one.',
+    'We’ll separate physical symptoms from thought spirals so you know which lever to pull when.'],q:'Where in your body do you feel it first — chest, stomach, or head?'},
+  other:{c:'not sure yet',pts:[
+    '"Not sure yet" is a real starting point — half of counseling session one is just naming the thing properly.',
+    'You don’t need a neat problem statement. You need 20 minutes where nothing is being managed or performed.',
+    'We’ll sort signal from noise together and pick one thread to pull.'],q:'If this week had a title, what would you call it?'}
+};
+function renderReflect(){
+  const r=reflMap[concern||'other'];
+  document.getElementById('rConcern').textContent=r.c;
+  document.getElementById('rCity').textContent=document.getElementById('fCity').value||'your city';
+  document.getElementById('rList').innerHTML=r.pts.map(p=>`<li>${p}</li>`).join('');
+  document.getElementById('rQ').textContent=r.q;
+}
+function pickSlot(el){
+  document.querySelectorAll('.slotrow').forEach(s=>s.classList.remove('on'));
+  el.classList.add('on'); slot={t:el.dataset.t,c:el.dataset.c};
+}
+function payNow(){
+  if(!slot){toast('Pick a slot first'); return;}
+  document.getElementById('dSlot').textContent=slot.t;
+  document.getElementById('dCoun').textContent=slot.c;
+  toast('Payment simulated — no charge made');
+  goF('done');
+}
+document.querySelectorAll('#mRow div').forEach(m=>m.onclick=()=>{
+  document.querySelectorAll('#mRow div').forEach(x=>x.classList.remove('on')); m.classList.add('on');
+});
+
+/* ---------- Sara chat (simulated) ---------- */
+const saraReplies={
+  sleep:{bot:["Phone face-down for a sec. Let's do 4-7-8 breathing together: inhale 4, hold 7, exhale 8 — three rounds. I'll count with you.","Rounds done? On a scale of 1–10, how loud is your head still? If it's above 6, I have a 2-min body-scan script — want it?"],cta:false},
+  meet:{bot:["Pause. Feet flat on the floor. Name 3 things you can see right now.","Your only job in the next 10 minutes is to be present — not perfect. Want a 60-sec pre-meeting reset I can walk you through?"],cta:false},
+  vent:{bot:["I'm here. No advice unless you ask. Start wherever — I'll listen and reflect back what I hear.","Take your time. Even half a sentence is enough to start."],cta:false},
+  need:{bot:["Quick honest check: has this been going on for 2+ weeks, and is it touching your sleep, work, or appetite?","If yes — a 20-min call with a verified counselor (₹299, any slot 7 AM–1 AM) usually beats white-knuggling it alone. I can't diagnose you — that's exactly what the first call is for. Want me to show tonight's slots?"],cta:true}
+};
+function addBubble(text, cls){
+  const b=document.getElementById('chatBody');
+  const d=document.createElement('div'); d.className='cb '+cls; d.innerHTML=text;
+  b.appendChild(d); b.scrollTop=b.scrollHeight;
+}
+function botScript(key){
+  const r=saraReplies[key]; if(!r) return;
+  r.bot.forEach((t,i)=>setTimeout(()=>addBubble(t,'bot'), 450*(i+1)));
+  if(r.cta) setTimeout(()=>{document.getElementById('chatCta').style.display='block';},450*(r.bot.length+1));
+}
+document.querySelectorAll('#chatChips .chip').forEach(c=>c.onclick=()=>{
+  addBubble(c.textContent.trim(),'me'); document.getElementById('chatCta').style.display='none'; botScript(c.dataset.k);
+});
+function sendChat(){
+  const inp=document.getElementById('chatIn'); const v=inp.value.trim(); if(!v) return;
+  addBubble(v,'me'); inp.value=''; document.getElementById('chatCta').style.display='none';
+  const crisis=/suicide|kill myself|end it|self.?harm|hurt myself|die/i.test(v);
+  if(crisis){
+    addBubble("I hear you, and I'm really glad you said it out loud. I'm an AI — not a crisis counselor. Please call a free 24×7 line right now: <b>KIRAN 1800-599-0019</b> · <b>Vandrevala 1800-233-3330</b> · <b>Emergency 112</b>. They're human, free, and waiting. I'll stay right here if you want to keep talking.",'sys');
+    return;
+  }
+  addBubble("I heard you. Tell me one more thing about it — what happened, or what you felt in your body when it hit?",'bot');
+}
+
+let tT; function toast(m){
+  const t=document.getElementById('toast'); t.textContent=m; t.classList.add('show');
+  clearTimeout(tT); tT=setTimeout(()=>t.classList.remove('show'),2300);
+}
+/* esc closes flow */
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeFlow()});
+</script>
+</body>
+</html>
