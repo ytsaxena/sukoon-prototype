@@ -268,6 +268,70 @@ label.fl{display:block; font-size:13px; color:var(--muted); font-weight:700; mar
 .chat-in button{background:var(--mint); color:#04120e; border:none; border-radius:12px; padding:0 18px; font-weight:800; cursor:pointer; font-size:14px}
 .chat-cta{background:rgba(95,224,184,.1); border:1px solid rgba(95,224,184,.4); border-radius:12px; padding:10px; text-align:center; margin:4px 16px 0}
 
+
+/* ============ MOBILE (≤600px) ============ */
+@media(max-width:600px){
+  section{padding:56px 0}
+  .hero{padding:110px 0 56px}
+  .wrap{padding:0 16px}
+  h1{font-size:31px}
+  h2.sec{font-size:26px}
+  .hero-sub{font-size:16px}
+  .eyebrow{font-size:11.5px; letter-spacing:.1em}
+  .btn{width:100%; padding:15px 18px}
+  .hero-cta{flex-direction:column; align-items:stretch}
+  .hero-cta .btn{width:100%}
+  .trust{gap:10px 16px}
+  .trust div{font-size:12px}
+  .price{font-size:36px}
+  .plan{padding:26px 20px}
+  .pain{padding:20px}
+  .pain em{font-size:26px}
+  .panel{padding:22px}
+  .steps .step{padding:24px}
+  .safety{padding:20px}
+  .safety .lines{flex-direction:column; gap:8px}
+  .safety .lines a{text-align:center}
+  .couns{grid-template-columns:1fr}
+  .faq{margin-top:30px}
+  .q summary{padding:16px; font-size:14.5px}
+  .q .a{padding:0 16px 16px; font-size:13.5px}
+  .stats{padding:26px 0}
+  .stat b{font-size:28px}
+  /* chat */
+  .chat-body{height:300px}
+  .chat-h{padding:13px 14px}
+  .chat-chips{padding:0 12px 10px; gap:6px}
+  .chat-chips .chip{font-size:11.5px; padding:7px 11px}
+  .chat-in{padding:10px 12px 14px}
+  .chat-in input{padding:10px 12px; font-size:13.5px}
+  .cb{font-size:13.5px}
+  .sara-points li{font-size:14px}
+  /* flow overlay */
+  #flow{padding:14px 12px 70px}
+  .fscreen h2{font-size:21px}
+  .fin{padding:12px 13px; font-size:14.5px}
+  .chip{font-size:13px; padding:9px 13px}
+  .slotrow{padding:13px 14px; font-size:14px}
+  .wa{font-size:13px}
+  .wa .bub{padding:11px 12px}
+  /* nav / strip */
+  .nav-in{padding:11px 16px}
+  .logo{font-size:18px}
+  .btn.sm{font-size:13px; padding:9px 14px}
+  .demostrip{font-size:10.5px; padding:7px 10px; line-height:1.35}
+  body{padding-bottom:48px}
+  .f-bottom{font-size:11px}
+  footer{padding:40px 0 28px}
+}
+@media(max-width:360px){
+  h1{font-size:27px}
+  .price{font-size:32px}
+  .chip{font-size:12px; padding:8px 10px}
+}
+/* avoid iOS input zoom */
+@media(max-width:600px){ input, textarea, select{font-size:16px} .chat-in input{font-size:16px} .fin{font-size:16px} }
+
 /* toast */
 #toast{position:fixed; bottom:22px; left:50%; transform:translateX(-50%); background:var(--mint); color:#04120e; font-weight:800; font-size:14px; padding:12px 22px; border-radius:99px; opacity:0; pointer-events:none; transition:.3s; z-index:200; white-space:nowrap}
 #toast.show{opacity:1}
@@ -311,6 +375,7 @@ body{padding-bottom:42px}
       <div class="trust">
         <div><i>✓</i> No app install</div>
         <div><i>✓</i> Sara AI guide — free, 24×7</div>
+        <div><i>✓</i> Anonymous if you want</div>
         <div><i>✓</i> UPI in 30 seconds</div>
         <div><i>✓</i> Verified counselors (M.A./M.Phil)</div>
         <div><i>✓</i> Private by default</div>
@@ -378,6 +443,7 @@ body{padding-bottom:42px}
           <li>For: work stress, anxiety, sleep, burnout, money worry, relationship strain</li>
           <li>Hindi or English, on your phone — <b>slots all day (7 AM–1 AM)</b>, most within 2–3 hours</li>
           <li><b>Sara, a free AI guide</b>, for immediate support before you ever pay</li>
+          <li><b>Anonymous if you want</b> — first name or initials only; your number stays with Sukoon (counselor sees a relay)</li>
           <li>Verified counselors (M.A./M.Phil Psychology) + AI daily check-ins between sessions</li>
           <li>Something you book in 60 seconds, without telling anyone</li>
         </ul>
@@ -572,6 +638,7 @@ body{padding-bottom:42px}
     <div class="eyebrow rv">FAQ</div>
     <h2 class="sec rv">The questions people actually ask</h2>
     <div class="faq">
+      <details class="q rv"><summary>Can I stay anonymous?</summary><div class="a">Yes. At intake you can toggle anonymous mode — the counselor sees only a first name or initials you choose (e.g. "A" or "Guest"), never your full name. Your WhatsApp number is used by Sukoon only to send the slot link; counselors get a relay, not your number. Delete your data anytime (DPDP-aligned).</div></details>
       <details class="q rv"><summary>Is this therapy? Am I "sick" if I use it?</summary><div class="a">No on both. Sukoon is wellness counseling for everyday stress — like a physiotherapist for your back, but for a stressed week. No diagnosis, no medication, no labels. If something clinical shows up, your counselor will say so and point you to the right professional.</div></details>
       <details class="q rv"><summary>Why only 20 minutes for the first call?</summary><div class="a">Because the first call's only job is: make you feel heard, understand your situation, and agree on one next step. 60 minutes on day one is a commitment most stressed people never make. We want the second call, not the perfect first call.</div></details>
       <details class="q rv"><summary>Who hears my problems? Is it private?</summary><div class="a">One verified counselor. Calls aren't recorded. Your intake answers are used only for your care, deletable on request (DPDP-aligned). Nothing shared with your employer, ever — we have no employer clients in v1.</div></details>
@@ -654,6 +721,12 @@ body{padding-bottom:42px}
         <input class="fin" id="fCity" value="Bengaluru" placeholder="Mumbai / Bengaluru / Delhi NCR…">
         <label class="fl">WhatsApp number (slot confirmation)</label>
         <input class="fin" id="fWa" value="+91 98•••• ••21" inputmode="tel">
+        <label class="fl">Counselor ko dikhne wala naam</label>
+        <input class="fin" id="fName" placeholder="First name or initials — e.g. A" value="">
+        <label class="consent" style="margin-top:14px; background:rgba(95,224,184,.06); border:1px solid rgba(95,224,184,.3); border-radius:12px; padding:12px">
+          <input type="checkbox" id="fAnon" checked onchange="toggleAnon()">
+          <span><b style="color:var(--ink)">Book anonymously</b> — counselor ko sirf yeh naam + city dikhegi. Aapka WhatsApp number Sukoon ke paas sirf slot link ke liye; counselor ko nahi. Number relay hota hai.</span>
+        </label>
         <label class="consent"><input type="checkbox" id="fConsent" checked>
           I agree my answers are used only for my session (DPDP-aligned, deletable anytime). Sukoon is wellness support — not diagnosis, not crisis care.</label>
         <button class="btn main full" style="margin-top:18px" onclick="submitIntake()">Continue →</button>
@@ -666,7 +739,7 @@ body{padding-bottom:42px}
       <h2>Walk in with clarity</h2>
       <p class="fsub">Generated from your answers so the call starts at depth, not at "so what brings you here." <span class="badge sim">SIMULATED AI</span></p>
       <div class="fcard refl-card">
-        <p style="font-size:13px; color:var(--muted)">You said: <b id="rConcern" style="color:var(--ink)">work stress</b> · <span id="rCity">Bengaluru</span></p>
+        <p style="font-size:13px; color:var(--muted)">You said: <b id="rConcern" style="color:var(--ink)">work stress</b> · <span id="rCity">Bengaluru</span><br>Counselor will see you as: <b id="rName" style="color:var(--mint)">Guest (anonymous)</b></p>
         <ul id="rList"></ul>
         <p style="font-size:14.5px; margin-top:12px">🎯 <b>One question for your call:</b> <span id="rQ"></span></p>
       </div>
@@ -710,6 +783,7 @@ body{padding-bottom:42px}
           <div class="bub">Namaste! Sukoon se. Aapki pehli call <b id="dSlot">aaj 4:00 PM</b> par <b id="dCoun">Rohit K.</b> ke saath confirm hai — 20 min, Hindi/English.</div>
           <div class="bub">Call se pehle: phone charger + headphone, ek aisi jagah jahan koi disturb na kare. Turant baad aapko daily check-in link milega.</div>
           <div class="bub">Reschedule? Bas yahin reply karein. Crisis ke liye (hamare alawa): KIRAN 1800-599-0019, 24×7 free.</div>
+          <div class="bub" id="dAnonLine">🔒 Aap <b>anonymous</b> hain — counselor ko sirf aapka display name + city dikhegi, number nahi (relay via Sukoon).</div>
           <div class="tm">9:14 PM ✓✓</div>
         </div>
       </div>
@@ -814,6 +888,7 @@ function renderReflect(){
   const r=reflMap[concern||'other'];
   document.getElementById('rConcern').textContent=r.c;
   document.getElementById('rCity').textContent=document.getElementById('fCity').value||'your city';
+  document.getElementById('rName').textContent=dispName();
   document.getElementById('rList').innerHTML=r.pts.map(p=>`<li>${p}</li>`).join('');
   document.getElementById('rQ').textContent=r.q;
 }
@@ -825,12 +900,27 @@ function payNow(){
   if(!slot){toast('Pick a slot first'); return;}
   document.getElementById('dSlot').textContent=slot.t;
   document.getElementById('dCoun').textContent=slot.c;
+  const anon=document.getElementById('fAnon').checked;
+  document.getElementById('dAnonLine').style.display= anon ? 'block' : 'none';
   toast('Payment simulated — no charge made');
   goF('done');
 }
 document.querySelectorAll('#mRow div').forEach(m=>m.onclick=()=>{
   document.querySelectorAll('#mRow div').forEach(x=>x.classList.remove('on')); m.classList.add('on');
 });
+
+/* ---------- anonymity ---------- */
+function toggleAnon(){
+  const anon=document.getElementById('fAnon').checked;
+  const nameIn=document.getElementById('fName');
+  nameIn.placeholder = anon ? 'First name or initials — e.g. A' : 'Your name (or keep initials)';
+}
+function dispName(){
+  const anon=document.getElementById('fAnon').checked;
+  const raw=(document.getElementById('fName').value||'').trim();
+  if(anon) return raw ? raw+' (anonymous)' : 'Guest (anonymous)';
+  return raw || 'Guest';
+}
 
 /* ---------- Sara chat (simulated) ---------- */
 const saraReplies={
